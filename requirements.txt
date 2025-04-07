@@ -1,0 +1,6 @@
+livekit-agents>=1.0.0rc7
+livekit-plugins-openai>=1.0.0rc7
+livekit-plugins-silero>=1.0.0rc7
+livekit-plugins-deepgram>=1.0.0rc7
+mcp
+python-dotenv

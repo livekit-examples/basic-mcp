@@ -7,7 +7,7 @@ from livekit.agents.llm import function_tool
 from livekit.agents.voice import Agent, AgentSession, RunContext
 from livekit.plugins import deepgram, openai, silero
 from livekit.agents import JobContext, WorkerOptions, cli, Agent, AgentSession
-from livekit.plugins import deepgram, openai, silero, groq
+from livekit.plugins import deepgram, openai, silero
 
 from mcp_client import MCPServerSse
 from mcp_client.agent_tools import MCPToolsIntegration
