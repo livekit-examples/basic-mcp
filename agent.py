@@ -3,7 +3,7 @@ import logging
 from pathlib import Path
 from dotenv import load_dotenv
 from livekit.agents import JobContext, WorkerOptions, cli
-from livekit.agents.llm import function_tool
+from livekit.agents.llm import function_tool, ChatChunk
 from livekit.agents.voice import Agent, AgentSession
 from livekit.plugins import deepgram, openai, silero
 from livekit.agents import JobContext, WorkerOptions, cli, Agent, AgentSession
@@ -29,6 +29,21 @@ class FunctionAgent(Agent):
             vad=silero.VAD.load(),
             allow_interruptions=True
         )
+
+    async def llm_node(self, chat_ctx, tools, model_settings):
+        """Override the llm_node to say a message when a tool call is detected."""
+        activity = self._activity
+        tool_call_detected = False
+
+        # Get the original response from the parent class
+        async for chunk in super().llm_node(chat_ctx, tools, model_settings):
+            # Check if this chunk contains a tool call
+            if isinstance(chunk, ChatChunk) and chunk.delta and chunk.delta.tool_calls and not tool_call_detected:
+                # Say the checking message only once when we detect the first tool call
+                tool_call_detected = True
+                activity.agent.say("Sure, I'll check that for you.")
+
+            yield chunk
 
 async def entrypoint(ctx: JobContext):
     """Main entrypoint for the LiveKit agent application."""
