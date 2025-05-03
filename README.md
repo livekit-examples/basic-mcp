@@ -1,6 +1,6 @@
 # LiveKit Agent with MCP Tools
 
-A voice assistant application built using the LiveKit Agents framework, capable of using Multimodal Control Protocol (MCP) tools to interact with external services.
+A voice assistant application built using the LiveKit Agents framework, capable of using [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) tools to interact with external services.
 
 ## Features
 
