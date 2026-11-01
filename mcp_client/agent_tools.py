@@ -113,9 +113,10 @@ class MCPToolsIntegration:
         # Define the actual function that will be called by the agent
         async def tool_impl(**kwargs):
             input_json = json.dumps(kwargs)
-            logger.info(f"Invoking tool '{tool.name}' with args: {kwargs}")
+            # Tool payloads may carry user data, so they stay out of default logs.
+            logger.debug(f"Invoking tool '{tool.name}' with args: {kwargs}")
             result_str = await tool.on_invoke_tool(None, input_json)
-            logger.info(f"Tool '{tool.name}' result: {result_str}")
+            logger.debug(f"Tool '{tool.name}' result: {result_str}")
             return result_str
 
         # Set function metadata
